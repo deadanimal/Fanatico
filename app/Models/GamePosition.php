@@ -11,19 +11,21 @@ class GamePosition extends Model
 
     protected $fillable = [
         'game_match_id',
-        'outcome_id',
+        'game_outcome_id',
         'user_id', 
         'token_id',
         'token_amount',           
     ];     
     
-    public function match()
-    {
+    public function game_match() {
         return $this->belongsTo(GameMatch::class);
     }   
+
+    public function game_outcome() {
+        return $this->belongsTo(GameOutcome::class);
+    }      
     
-    public function user()
-    {
+    public function user() {
         return $this->belongsTo(User::class);
     }       
 }

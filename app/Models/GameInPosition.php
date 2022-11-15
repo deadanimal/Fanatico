@@ -18,17 +18,17 @@ class GameInPosition extends Model
         'token_amount',
     ];    
 
-    public function answer()
+    public function in_answer()
     {
         return $this->belongsTo(GameInAnswer::class);
     } 
 
-    public function question()
+    public function in_question()
     {
         return $this->belongsTo(GameInQuestion::class);
     }     
     
-    public function match()
+    public function game_match()
     {
         return $this->belongsTo(GameMatch::class);
     }   

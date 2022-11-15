@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GameOutcome;
+use App\Models\GamePosition;
 use Illuminate\Http\Request;
 
 use App\Models\Token;
@@ -21,6 +23,7 @@ class WebController extends Controller
     public function dashboard(Request $request) {
         $user = $request->user();
 
+        $position = GamePosition::find(1);
         if(TokenBalance::where([
             ['token_id', '=', 1],
             ['user_id', '=', $user->id]
@@ -36,7 +39,7 @@ class WebController extends Controller
             ['user_id', '=', $user->id]
         ])->first();
 
-        return view('web.dashboard', compact('dollar_balance'));
+        return view('web.dashboard', compact('dollar_balance', 'position'));
     }   
     
     public function dollar(Request $request) {

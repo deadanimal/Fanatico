@@ -14,4 +14,9 @@ class Post extends Model
         'description', 
         'user_id',
     ];
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'taggable');
+    }    
 }

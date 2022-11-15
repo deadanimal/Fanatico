@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+Use Alert;
 
 use App\Models\GameMatch;
 use App\Models\GameOutcome;
@@ -220,23 +221,45 @@ class DataController extends Controller
 
     public function upload_image(Request $request) {
         Image::create([
-            'name' => $request->name,
+            'title' => $request->title,
+            'caption' => $request->caption,
             'path' => $request->file('image')->store('fanatico/images'),
             'user_id' => $request->user()->id,
             'taggable_type' => $request->taggable_type,
             'taggable_id' => $request->taggable_id, 
         ]);
+        Alert::success('Upload Successful', 'The image that has been uploaded is succesful.');
         return back();
     }
 
+    public function kemaskini_image(Request $request) {
+        $id = (int)$request->route('id');
+        $image = Image::find($id);
+        $image->title = $request->title;
+        $image->caption = $request->caption;
+        $image->save();
+        return back();
+    }    
+
     public function upload_video(Request $request) {
         Video::create([
-            'name' => $request->name,
+            'title' => $request->title,
+            'caption' => $request->caption,
             'path' => $request->file('video')->store('fanatico/videos'),
             'user_id' => $request->user()->id,
             'taggable_type' => $request->taggable_type,
             'taggable_id' => $request->taggable_id, 
         ]);
+        Alert::success('Upload Successful', 'The image that has been uploaded is succesful.');
         return back();          
     }
+
+    public function kemaskini_video(Request $request) {
+        $id = (int)$request->route('id');
+        $video = Video::find($id);
+        $video->title = $request->title;
+        $video->caption = $request->caption;
+        $video->save();
+        return back();
+    }        
 }

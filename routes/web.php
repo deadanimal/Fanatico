@@ -60,7 +60,9 @@ Route::middleware(['auth', 'role:manager,admin'])->group(function () {
     Route::put('player/{id}', [DataController::class, 'kemaskini_player']);     
 
     Route::post('image', [DataController::class, 'upload_image']);
+    Route::post('image/{id}', [DataController::class, 'kemaskini_image']);
     Route::post('video', [DataController::class, 'upload_video']);
+    Route::post('video/{id}', [DataController::class, 'kemaskini_video']);
 
 });
 

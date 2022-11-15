@@ -15,7 +15,7 @@ class GameInQuestion extends Model
         'game_match_id',
     ];    
 
-    public function match()
+    public function game_match()
     {
         return $this->belongsTo(GameMatch::class);
     }    

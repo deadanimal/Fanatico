@@ -1,14 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row">
+
+    <div class="row mb-3">
         <div class="col">
             <h1>{{ $match->name }}</h1>
             <p>{{ $match->description }}</p>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mb-3">
         @foreach ($match->teams as $team)
             <div class="col-3">
 
@@ -40,25 +41,18 @@
         @endforeach
     </div>
 
-    <div class="row">
+    <div class="row mb-3">
         <h1>Outcome</h1>
 
         @foreach ($match->outcomes as $outcome)
             <div class="col-3">
                 <div class="card">
                     <div class="card-header">
-                        {{ $outcome->name }} ({{$outcome->positions->count()}})
+                        {{ $outcome->name }}
                     </div>
                     <div class="card-body">
-                        <table class="table">
-                            <tbody>
-                                @foreach ($outcome->positions as $position)
-                                    <tr>
-                                        <td>{{$position->user->name}}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>                        
+                    
+                        <h3>{{$outcome->positions->count()}}</h3>
                         
                         <form action="/outcome/{{ $outcome->id }}/play" method="POST">
                              @csrf
@@ -72,9 +66,7 @@
 
     </div>
 
-
-
-    <div class="row">
+    <div class="row mb-3">
         <h1>In-Game</h1>
 
             @foreach ($match->in_questions as $question)
@@ -110,7 +102,7 @@
 
 
     @role('manager|admin')
-        <div class="row">
+        <div class="row mb-3">
             <div class="col-3">
                 <div class="card">
                     <div class="card-header">

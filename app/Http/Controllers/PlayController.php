@@ -101,6 +101,7 @@ class PlayController extends Controller
         $position->token_amount = $token_amount;
         $position->save();    
 
+        Alert::success('Successful Bet Made', 'You have successfully placed a bet on the in-game');
         return back();
     }
 

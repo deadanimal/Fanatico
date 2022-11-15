@@ -9,11 +9,17 @@ class Image extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
+    protected $fillable = [    
         'path', 
         'user_id',
         'taggable_type',
-        'taggable_id',           
-    ];       
+        'taggable_id',  
+        'title',
+        'caption'         
+    ];   
+    
+    public function taggable()
+    {
+        return $this->morphTo();
+    }    
 }

@@ -18,7 +18,7 @@ class GameInAnswer extends Model
         'token_min_amount',
     ];
 
-    public function match()
+    public function game_match()
     {
         return $this->belongsTo(GameMatch::class);
     }  
