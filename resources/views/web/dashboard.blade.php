@@ -18,7 +18,7 @@ all the bets made in-game <br/>
             <div class="card-body">
 
                 @foreach(Auth::user()->balances as $balance)
-                {{$balance->token->name}} - {{$balance->balance}}
+                {{$balance->token->name}} - {{number_format($balance->balance / (10 ** $balance->token->decimal), 2, '.', ',') }}
                 @endforeach
 
             </div>
@@ -34,8 +34,8 @@ all the bets made in-game <br/>
             </div>
             <div class="card-body">
 
-                In-game: {{Auth::user()->positions->sum('token_amount')}}  <br/>
-                Outcome: {{Auth::user()->in_positions->sum('token_amount')}}  <br/>
+                In-game: {{number_format(Auth::user()->positions->sum('token_amount') / 1000000, 2, '.', ',') }}  <br/>
+                In-game: {{number_format(Auth::user()->in_positions->sum('token_amount') / 1000000, 2, '.', ',') }}  <br/>
 
             </div>
         </div>
