@@ -23,6 +23,34 @@ class BlockController extends Controller
         $purchase = new TokenPurchase;
         $purchase->save();
 
+        $bitpay = BitPaySDK\Client::create()->withFile([FULL_PATH_TO_THE_CONFIG_FILE]);
+        $invoice = new Invoice(50.0, Currency::USD); //Always use the included Currency model to avoid typos
+        $invoice->setToken($bitpay->_token);
+        $invoice->setOrderId("65f5090680f6");
+        $invoice->setFullNotifications(true);
+        $invoice->setExtendedNotifications(true);
+        $invoice->setNotificationURL("https://hookbin.com/lJnJg9WW7MtG9GZlPVdj");
+        $invoice->setRedirectURL("https://hookbin.com/lJnJg9WW7MtG9GZlPVdj");
+        $invoice->setItemDesc("Ab tempora sed ut.");
+        $invoice->setNotificationEmail("");
+        
+        $buyer = new Buyer();
+        $buyer->setName("Bily Matthews");
+        $buyer->setEmail("");
+        $buyer->setAddress1("168 General Grove");
+        $buyer->setAddress2("");
+        $buyer->setCountry("AD");
+        $buyer->setLocality("Port Horizon");
+        $buyer->setNotify(true);
+        $buyer->setPhone("+990123456789");
+        $buyer->setPostalCode("KY7 1TH");
+        $buyer->setRegion("New Port");
+        
+        $invoice->setBuyer($buyer);
+        
+        $basicInvoice = $bitpay->createInvoice($invoice);   
+        $invoiceUrl = $basicInvoice->getURL();     
+
         return back();
     }
 
@@ -72,5 +100,5 @@ class BlockController extends Controller
     public function bitpay_notification(Request $request) {
         return response('', 200);
     }
-    
+
 }
