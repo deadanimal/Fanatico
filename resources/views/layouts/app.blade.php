@@ -30,10 +30,11 @@
             </a>
 
             <ul class="nav nav-pills">
+                <li class="nav-item"><a class="nav-link" href="/post">News</a></li>
                 <li class="nav-item"><a class="nav-link" href="/match">Match</a></li>
                 <li class="nav-item"><a class="nav-link" href="/team">Team</a></li>
                 <li class="nav-item"><a class="nav-link" href="/player">Player</a></li>
-                <a href="/play"><button type="button" class="btn btn-success">Play</button></a>
+                <a href="/dashboard"><button type="button" class="btn btn-primary">Dashboard</button></a>
             </ul>
         </header>
     </div>

@@ -20,10 +20,10 @@ class DataController extends Controller
         GameMatch::create([
             'name' => $request->name,
             'description' => $request->description,
-            'planned_start_datetime' => $request->planned_start_datetime,
-            'planned_end_datetime' => $request->planned_end_datetime,
-            'actual_start_datetime' => $request->actual_start_datetime,
-            'actual_end_datetime' => $request->actual_end_datetime,  
+            // 'planned_start_datetime' => $request->planned_start_datetime,
+            // 'planned_end_datetime' => $request->planned_end_datetime,
+            // 'actual_start_datetime' => $request->actual_start_datetime,
+            // 'actual_end_datetime' => $request->actual_end_datetime,  
             'user_id' => $request->user()->id,             
         ]);
         return back();
@@ -32,6 +32,8 @@ class DataController extends Controller
     public function kemaskini_match(Request $request) {
         $id = (int)$request->route('id');
         $match = GameMatch::find($id);
+        $match->name = $request->name;
+        $match->description = $request->description;        
         $match->save();
         return back();
     }
@@ -47,16 +49,36 @@ class DataController extends Controller
         return view('web.match_senarai', compact('matches'));        
     }
 
+    public function add_team_to_match(Request $request) {
+        $id = (int)$request->route('id');
+        $match = GameMatch::find($id);
+        $team = SportTeam::find($request->team_id);
+        $match->teams()->attach($team);
+        return back();
+    }    
+
+    public function remove_team_from_match(Request $request) {
+        $id = (int)$request->route('id');
+        $match = GameMatch::find($id);
+        $team = SportTeam::find($request->team_id);
+        $match->teams()->detach($team);
+        return back();
+    }     
+
+
+
 
 
     
     public function cipta_outcome(Request $request) {
+        $id = (int)$request->route('id');  
+
         GameOutcome::create([
             'name' => $request->name,
             'description' => $request->description,
-            'game_match_id' => $request->game_match_id,
+            'game_match_id' => $id,
             'user_id' => $request->user()->id,  
-            'token_id' => $request->token_id,
+            'token_id' => 1,
             'token_min_amount' => $request->token_min_amount,               
         ]);
         return back();        
@@ -95,6 +117,8 @@ class DataController extends Controller
     public function kemaskini_post(Request $request) {
         $id = (int)$request->route('id');
         $post = Post::find($id);
+        $post->name = $request->name;
+        $post->description = $request->description;
         $post->save();   
         return back();
     }
@@ -118,7 +142,7 @@ class DataController extends Controller
         SportTeam::create([
             'name' => $request->name,
             'description' => $request->description,
-            'creator_id' => $request->user()->id,
+            'user_id' => $request->user()->id,
         ]);
         return back();        
     }
@@ -126,6 +150,8 @@ class DataController extends Controller
     public function kemaskini_team(Request $request) {
         $id = (int)$request->route('id');
         $team = SportTeam::find($id);  
+        $team->name = $request->name;
+        $team->description = $request->description;        
         $team->save();
         return back();
     }
@@ -140,6 +166,22 @@ class DataController extends Controller
         $teams = SportTeam::all();
         return view('web.team_senarai', compact('teams'));
     }   
+
+    public function add_player_to_team(Request $request) {
+        $id = (int)$request->route('id');
+        $team = SportTeam::find($id);
+        $player = Player::find($request->player_id);
+        $team->players()->attach($player);
+        return back();
+    }    
+
+    public function remove_player_from_team(Request $request) {
+        $id = (int)$request->route('id');
+        $team = SportTeam::find($id);
+        $player = Player::find($request->player_id);
+        $team->players()->detach($player);
+        return back();
+    }      
     
 
 
@@ -156,6 +198,8 @@ class DataController extends Controller
     public function kemaskini_player(Request $request) {
         $id = (int)$request->route('id');
         $player = Player::find($id);
+        $player->name = $request->name;
+        $player->description = $request->description;           
         $player->save();
         return back();
     }

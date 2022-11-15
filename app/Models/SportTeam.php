@@ -12,6 +12,16 @@ class SportTeam extends Model
     protected $fillable = [
         'name',
         'description', 
-        'creator_id',
+        'user_id',
     ];      
+
+    public function matches()
+    {
+        return $this->belongsToMany(GameMatch::class);
+    }    
+    
+    public function players()
+    {
+        return $this->belongsToMany(Player::class);
+    }      
 }

@@ -17,5 +17,10 @@ class GameMatch extends Model
         'actual_start_datetime',
         'actual_end_datetime',  
         'user_id',      
-    ];        
+    ];     
+    
+    public function teams()
+    {
+        return $this->belongsToMany(SportTeam::class);
+    }    
 }

@@ -33,6 +33,7 @@ class LaratrustSetupTables extends Migration
 
         // Create table for associating roles to users and teams (Many To Many Polymorphic)
         Schema::create('role_user', function (Blueprint $table) {
+            \Illuminate\Support\Facades\DB::statement('SET SESSION sql_require_primary_key=0');
             $table->unsignedBigInteger('role_id');
             $table->unsignedBigInteger('user_id');
             $table->string('user_type');
@@ -45,6 +46,7 @@ class LaratrustSetupTables extends Migration
 
         // Create table for associating permissions to users (Many To Many Polymorphic)
         Schema::create('permission_user', function (Blueprint $table) {
+            \Illuminate\Support\Facades\DB::statement('SET SESSION sql_require_primary_key=0');
             $table->unsignedBigInteger('permission_id');
             $table->unsignedBigInteger('user_id');
             $table->string('user_type');
@@ -57,6 +59,7 @@ class LaratrustSetupTables extends Migration
 
         // Create table for associating permissions to roles (Many-to-Many)
         Schema::create('permission_role', function (Blueprint $table) {
+            \Illuminate\Support\Facades\DB::statement('SET SESSION sql_require_primary_key=0');
             $table->unsignedBigInteger('permission_id');
             $table->unsignedBigInteger('role_id');
 

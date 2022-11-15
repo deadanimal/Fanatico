@@ -7,6 +7,7 @@ use App\Http\Controllers\DataController;
 use App\Http\Controllers\WebController;
 
 Route::get('', [WebController::class, 'home']);
+Route::get('faq', [WebController::class, 'faq']);
 
 Route::get('match', [DataController::class, 'senarai_match']);
 Route::get('match/{id}', [DataController::class, 'satu_match']);
@@ -27,6 +28,8 @@ Route::get('answer/{id}', [PlayController::class, 'satu_answer']);
 
 Route::middleware(['auth'])->group(function () { 
 
+    Route::get('dashboard', [WebController::class, 'dashboard']);
+
     Route::post('dollar', [BlockController::class, 'buy_dollar']);
     Route::get('dollar/{id}', [BlockController::class, 'confirm_dollar']);
 
@@ -45,6 +48,8 @@ Route::middleware(['auth', 'role:manager'])->group(function () {
         
     Route::post('team', [DataController::class, 'cipta_team']);    
     Route::put('team/{id}', [DataController::class, 'kemaskini_team']);  
+    Route::post('team/{id}/add-player', [DataController::class, 'add_player_to_team']);
+    Route::post('team/{id}/remove-player', [DataController::class, 'remove_player_from_team']);      
         
     Route::post('player', [DataController::class, 'cipta_player']);    
     Route::put('player/{id}', [DataController::class, 'kemaskini_player']);     
@@ -55,10 +60,14 @@ Route::middleware(['auth', 'role:manager'])->group(function () {
 });
 
 
-Route::middleware(['auth', 'role:bookeeper'])->group(function () {
+Route::middleware(['auth', 'role:manager'])->group(function () {
     
-    Route::post('match', [DataController::class, 'cipta_match']);    
+    Route::post('match', [DataController::class, 'cipta_match']);
     Route::put('match/{id}', [DataController::class, 'kemaskini_match']);
+    Route::post('match/{id}/add-team', [DataController::class, 'add_team_to_match']);
+    Route::post('match/{id}/remove-team', [DataController::class, 'remove_team_from_match']);
+    Route::post('match/{id}/add-player', [DataController::class, 'add_player_to_match']);
+    Route::post('match/{id}/remove-player', [DataController::class, 'remove_player_from_match']);    
 
     Route::post('match/{id}/outcome', [DataController::class, 'cipta_outcome']);    
     Route::put('outcome/{id}', [DataController::class, 'kemaskini_outcome']);   
@@ -75,3 +84,6 @@ Route::middleware(['auth', 'role:ingame'])->group(function () {
     Route::put('answer/{id}', [PlayController::class, 'kemaskini_answer']);     
 
 });
+
+
+require __DIR__.'/auth.php';
