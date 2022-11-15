@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\PlayController;
 use App\Http\Controllers\WebController;
 
 Route::get('', [WebController::class, 'home']);

@@ -103,9 +103,10 @@ class PlayController extends Controller
 
 
     public function cipta_question(Request $request) {
+        $id = (int)$request->route('id');
         GameInQuestion::create([
             'question' => $request->question,
-            'game_match_id' => $request->game_match_id,
+            'game_match_id' => $id,
             'user_id' => $request->user()->id,             
         ]);
         return back();
@@ -128,9 +129,13 @@ class PlayController extends Controller
 
 
     public function cipta_answer(Request $request) {
+        $id = (int)$request->route('id');
         GameInAnswer::create([
             'answer' => $request->answer,
-            'game_match_id' => $request->game_match_id,
+            'game_match_id' => $id,
+            'question_id' => $request->question_id,
+            'token_id' => 1,
+            'token_min_amount' => $request->token_min_amount,
             'user_id' => $request->user()->id,             
         ]);
         return back();

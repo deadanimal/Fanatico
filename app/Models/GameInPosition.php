@@ -17,4 +17,24 @@ class GameInPosition extends Model
         'token_id',
         'token_amount',
     ];    
+
+    public function answer()
+    {
+        return $this->belongsTo(GameInAnswer::class);
+    } 
+
+    public function question()
+    {
+        return $this->belongsTo(GameInQuestion::class);
+    }     
+    
+    public function match()
+    {
+        return $this->belongsTo(GameMatch::class);
+    }   
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }     
 }

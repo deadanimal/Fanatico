@@ -18,4 +18,14 @@ class GameInAnswer extends Model
         'token_min_amount',
     ];
 
+    public function match()
+    {
+        return $this->belongsTo(GameMatch::class);
+    }  
+    
+    public function question()
+    {
+        return $this->belongsTo(GameInQuestion::class);
+    }      
+
 }

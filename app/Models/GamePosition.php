@@ -14,5 +14,15 @@ class GamePosition extends Model
         'user_id', 
         'token_id',
         'token_amount',           
-    ];      
+    ];     
+    
+    public function match()
+    {
+        return $this->belongsTo(GameMatch::class);
+    }   
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }       
 }

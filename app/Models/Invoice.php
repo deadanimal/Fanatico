@@ -15,5 +15,10 @@ class Invoice extends Model
         'price',
         'currency',
         'bitpay_id'
-    ];      
+    ];    
+    
+    public function token_purchase()
+    {
+        return $this->belongsTo(TokenPurchase::class);
+    }       
 }

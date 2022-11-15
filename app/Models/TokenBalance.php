@@ -13,5 +13,15 @@ class TokenBalance extends Model
         'token_id', 
         'user_id', 
         'balance',
-    ];      
+    ];    
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }    
+    
+    public function token()
+    {
+        return $this->belongsTo(Token::class);
+    }     
 }

@@ -22,5 +22,30 @@ class GameMatch extends Model
     public function teams()
     {
         return $this->belongsToMany(SportTeam::class);
+    }   
+    
+    public function outcomes()
+    {
+        return $this->hasMany(GameOutcome::class);
+    }   
+
+    public function in_questions()
+    {
+        return $this->hasMany(GameInQuestion::class);
+    }   
+
+    public function in_answers()
+    {
+        return $this->hasMany(GameInAnswer::class);
     }    
+
+    public function in_positions()
+    {
+        return $this->hasMany(GameInPosition::class);
+    }     
+
+    public function positions()
+    {
+        return $this->hasMany(GamePosition::class);
+    }        
 }

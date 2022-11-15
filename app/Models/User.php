@@ -28,4 +28,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function in_positions()
+    {
+        return $this->hasMany(GameInPosition::class);
+    }     
+
+    public function positions()
+    {
+        return $this->hasMany(GamePosition::class);
+    }  
+
+    public function purchases()
+    {
+        return $this->hasMany(TokenPurchase::class);
+    }      
+
+    public function balances()
+    {
+        return $this->hasMany(TokenBalance::class);
+    }      
+    
+    
 }

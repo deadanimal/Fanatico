@@ -12,5 +12,6 @@ class GameMatchSportTeam extends Model
     protected $fillable = [
         'match_id',
         'sport_team_id',
-    ];        
+    ];    
+     
 }
