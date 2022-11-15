@@ -4,7 +4,11 @@
     <h1>{{ $team->name }}</h1>
     <p>{{ $team->description }}</p>
 
-    @if (Auth::user()->hasRole('manager'))
+    @foreach ($team->players as $player)
+        {{ $player->name }} <br />
+    @endforeach
+
+    @role('manager')
         <div class="row">
             <div class="col-3">
                 <div class="card">
@@ -49,9 +53,5 @@
                 </div>
             </div>
         </div>
-    @endif
-
-    @foreach ($team->players as $player)
-        {{ $player->name }} <br />
-    @endforeach
+    @endrole
 @endsection

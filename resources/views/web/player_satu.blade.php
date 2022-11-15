@@ -1,7 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-@if(Auth::user()->hasRole('manager'))
+
+
+<h1>{{$player->name}}</h1>
+<p>{{$player->description}}</p>
+
+
+@role('manager')
 <div class="row">
     <div class="col-3">
         <div class="card">
@@ -29,9 +35,7 @@
     <div class="col-9">
     </div>
 </div>
-@else
-<h1>{{$player->name}}</h1>
-<p>{{$player->description}}</p>
-@endif
+@endrole
+
 
 @endsection

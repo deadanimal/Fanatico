@@ -1,7 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    @if (Auth::user()->hasRole('manager'))
+    <h1>{{ $match->name }}</h1>
+    <p>{{ $match->description }}</p>
+
+
+    @foreach ($match->teams as $team)
+        {{ $team->name }} <br />
+    @endforeach
+
+
+    @role('manager')
         <div class="row">
             <div class="col-3">
                 <div class="card">
@@ -50,7 +59,7 @@
                     <div class="card-header">
                         Create Outcome for Match
                     </div>
-                    <div class="card-body">                        
+                    <div class="card-body">
 
                         <form action="/match/{{ $match->id }}/outcome" method="POST">
                             @csrf
@@ -62,24 +71,17 @@
                             <div class="mb-3">
                                 <label class="form-label">Description</label>
                                 <input type="text" class="form-control" id="name" name="description">
-                            </div>    
-                            
+                            </div>
+
                             <div class="mb-3">
                                 <label class="form-label">Minimum Amount</label>
                                 <input type="text" class="form-control" id="name" name="token_min_amount">
-                            </div>                               
+                            </div>
                             <button type="submit" class="btn btn-primary">Add Outcome</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    @else
-        <h1>{{ $match->name }}</h1>
-        <p>{{ $match->description }}</p>
-    @endif
-
-    @foreach ($match->teams as $team)
-        {{$team->name}} <br/>
-    @endforeach
+    @endrole
 @endsection
