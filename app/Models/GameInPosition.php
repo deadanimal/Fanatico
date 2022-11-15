@@ -18,23 +18,23 @@ class GameInPosition extends Model
         'token_amount',
     ];    
 
-    public function in_answer()
+    public function answer()
     {
-        return $this->belongsTo(GameInAnswer::class);
+        return $this->belongsTo(GameInAnswer::class, 'game_in_answer_id');
     } 
 
-    public function in_question()
+    public function question()
     {
-        return $this->belongsTo(GameInQuestion::class);
+        return $this->belongsTo(GameInQuestion::class, 'game_in_question_id');
     }     
     
-    public function game_match()
+    public function match()
     {
-        return $this->belongsTo(GameMatch::class);
+        return $this->belongsTo(GameMatch::class, 'game_match_id');
     }   
     
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }     
 }

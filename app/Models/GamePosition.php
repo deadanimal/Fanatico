@@ -17,15 +17,15 @@ class GamePosition extends Model
         'token_amount',           
     ];     
     
-    public function game_match() {
-        return $this->belongsTo(GameMatch::class);
+    public function match() {
+        return $this->belongsTo(GameMatch::class, 'game_match_id');
     }   
 
-    public function game_outcome() {
-        return $this->belongsTo(GameOutcome::class);
+    public function outcome() {
+        return $this->belongsTo(GameOutcome::class, 'game_outcome_id');
     }      
     
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }       
 }

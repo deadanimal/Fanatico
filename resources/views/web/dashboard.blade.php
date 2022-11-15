@@ -50,8 +50,8 @@ all the bets made in-game <br/>
             <tbody>
                 @foreach (Auth::user()->positions as $position)
                     <tr>
-                        <td>{{$position->game_match->name}}</td>
-                        <td>{{$position->game_outcome->name}}</td>
+                        <td>{{$position->match->name}}</td>
+                        <td>{{$position->outcome->name}}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -59,6 +59,8 @@ all the bets made in-game <br/>
     </div>
 </div>
 
+
+{{$position->position_question}}
 
 <div class="row">
     <div class="col">
@@ -68,8 +70,8 @@ all the bets made in-game <br/>
                 <tbody>
                     @foreach (Auth::user()->in_positions as $position)
                         <tr>
-                            <td>{{$position->game_match->name}}</td>
-                            <td>{{$position->in_question}} {{$position->in_answer}} </td>
+                            <td>{{$position->match->name}}</td>
+                            <td>{{$position->question->question}} {{$position->answer->answer}} </td>
                         </tr>
                     @endforeach
                 </tbody>

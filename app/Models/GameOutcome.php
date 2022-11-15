@@ -18,9 +18,9 @@ class GameOutcome extends Model
         'token_min_amount',         
     ];      
 
-    public function game_match()
+    public function match()
     {
-        return $this->belongsTo(GameMatch::class);
+        return $this->belongsTo(GameMatch::class, 'game_match_id');
     }   
 
     public function positions()

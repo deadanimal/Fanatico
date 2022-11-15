@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\GameOutcome;
-use App\Models\GamePosition;
+use App\Models\GameInPosition;
 use Illuminate\Http\Request;
 
 use App\Models\Token;
@@ -23,7 +23,7 @@ class WebController extends Controller
     public function dashboard(Request $request) {
         $user = $request->user();
 
-        $position = GamePosition::find(1);
+        $position = GameInPosition::find(1);
         if(TokenBalance::where([
             ['token_id', '=', 1],
             ['user_id', '=', $user->id]

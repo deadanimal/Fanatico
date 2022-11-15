@@ -29,12 +29,12 @@ class GameMatch extends Model
         return $this->hasMany(GameOutcome::class);
     }   
 
-    public function in_questions()
+    public function questions()
     {
         return $this->hasMany(GameInQuestion::class);
     }   
 
-    public function in_answers()
+    public function answers()
     {
         return $this->hasMany(GameInAnswer::class);
     }    

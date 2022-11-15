@@ -69,7 +69,7 @@
     <div class="row mb-3">
         <h1>In-Game</h1>
 
-            @foreach ($match->in_questions as $question)
+            @foreach ($match->questions as $question)
             <div class="col-3">
                 <div class="card">
                     <div class="card-header">
@@ -138,7 +138,12 @@
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label">Team ID</label>
-                                <input type="text" class="form-control" id="name" name="team_id">
+                                <select class="form-select" id="team_id" name="team_id">
+                                    @foreach ($teams as $team)
+                                        <option value={{ $team->id }}>{{ $team->name }}</option>
+                                    @endforeach
+
+                                </select>                                
                             </div>
                             <button type="submit" class="btn btn-primary">Add Team</button>
                         </form>
@@ -202,7 +207,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Question</label>
                                 <select class="form-select" name="question_id">
-                                    @foreach ($match->in_questions as $question)
+                                    @foreach ($match->questions as $question)
                                         <option value={{ $question->id }}>{{ $question->question }}</option>
                                     @endforeach
 

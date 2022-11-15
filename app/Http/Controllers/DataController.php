@@ -42,7 +42,8 @@ class DataController extends Controller
     public function satu_match(Request $request) {
         $id = (int)$request->route('id');
         $match = GameMatch::find($id);
-        return view('web.match_satu', compact('match'));
+        $teams = SportTeam::all();
+        return view('web.match_satu', compact('match', 'teams'));
     }
 
     public function senarai_match(Request $request) {

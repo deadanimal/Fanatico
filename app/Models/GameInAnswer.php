@@ -10,22 +10,16 @@ class GameInAnswer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'answer',
         'user_id',
         'game_in_question_id',
         'game_match_id',
         'token_id',
         'token_min_amount',
-    ];
-
-    public function game_match()
-    {
-        return $this->belongsTo(GameMatch::class);
-    }  
+    ]; 
     
     public function question()
     {
-        return $this->belongsTo(GameInQuestion::class);
+        return $this->belongsTo(GameInQuestion::class, 'game_in_question_id');
     }     
     
     public function positions()
