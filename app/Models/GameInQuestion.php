@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class GameInQuestion extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'question',
+        'user_id',
+        'game_match_id',
+    ];    
 }

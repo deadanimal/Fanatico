@@ -10,4 +10,12 @@ class WebController extends Controller
         return view('web.home');
     }
 
+    public function dashboard(Request $request) {
+        return view('web.dashboard');
+    }   
+    
+    public function dollar(Request $request) {
+        return view('web.dollar');
+    }        
+
 }

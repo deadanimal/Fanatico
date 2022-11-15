@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\BlockController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\WebController;
 
@@ -19,17 +20,20 @@ Route::get('team/{id}', [DataController::class, 'satu_team']);
 Route::get('player', [DataController::class, 'senarai_player']);
 Route::get('player/{id}', [DataController::class, 'satu_player']);
 
-Route::get('ingame-question/{id}', [DataController::class, 'satu_ingame_question']); 
-Route::get('ingame-answer/{id}', [DataController::class, 'satu_ingame_answer']);  
+Route::get('question/{id}', [PlayController::class, 'satu_question']); 
+Route::get('answer/{id}', [PlayController::class, 'satu_answer']);  
 
 
 
 Route::middleware(['auth'])->group(function () { 
 
+    Route::post('dollar', [BlockController::class, 'buy_dollar']);
+    Route::get('dollar/{id}', [BlockController::class, 'confirm_dollar']);
+
     Route::post('team/{id}/buy-token', [PlayController::class, 'buy_token_team']);
     Route::post('player/{id}/buy-token', [PlayController::class, 'buy_token_player']);
     Route::post('outcome/{id}/play', [PlayController::class, 'play_outcome']);   
-    Route::post('ingame-answer/{id}/play', [PlayController::class, 'play_ingame']);   
+    Route::post('answer/{id}/play', [PlayController::class, 'play_ingame']);   
 
 });
 
@@ -57,21 +61,17 @@ Route::middleware(['auth', 'role:bookeeper'])->group(function () {
     Route::put('match/{id}', [DataController::class, 'kemaskini_match']);
 
     Route::post('match/{id}/outcome', [DataController::class, 'cipta_outcome']);    
-    Route::put('outcome/{id2}', [DataController::class, 'kemaskini_outcome']);   
+    Route::put('outcome/{id}', [DataController::class, 'kemaskini_outcome']);   
 
 });
 
 
 Route::middleware(['auth', 'role:ingame'])->group(function () {  
 
-    Route::post('match/{id}/ingame-question', [DataController::class, 'cipta_question']);    
-    Route::put('ingame-question/{id2}', [DataController::class, 'kemaskini_question']); 
+    Route::post('match/{id}/question', [PlayController::class, 'cipta_question']);    
+    Route::put('question/{id}', [PlayController::class, 'kemaskini_question']); 
     
-    Route::post('match/{id}/ingame-answer', [DataController::class, 'cipta_answer']);    
-    Route::put('ingame-answer/{id2}', [DataController::class, 'kemaskini_answer']);     
+    Route::post('match/{id}/answer', [PlayController::class, 'cipta_answer']);    
+    Route::put('answer/{id}', [PlayController::class, 'kemaskini_answer']);     
 
-});
-
-Route::get('/', function () {
-    return view('welcome');
 });
