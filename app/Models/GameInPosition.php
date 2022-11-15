@@ -11,8 +11,8 @@ class GameInPosition extends Model
 
     protected $fillable = [
         'user_id',
-        'question_id',
-        'answer_id',
+        'game_in_question_id',
+        'game_in_answer_id',
         'game_match_id',
         'token_id',
         'token_amount',

@@ -12,7 +12,7 @@ class GameInAnswer extends Model
     protected $fillable = [
         'answer',
         'user_id',
-        'question_id',
+        'game_in_question_id',
         'game_match_id',
         'token_id',
         'token_min_amount',
@@ -26,6 +26,11 @@ class GameInAnswer extends Model
     public function question()
     {
         return $this->belongsTo(GameInQuestion::class);
-    }      
+    }     
+    
+    public function positions()
+    {
+        return $this->hasMany(GameInPosition::class);
+    }     
 
 }

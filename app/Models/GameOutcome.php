@@ -22,4 +22,9 @@ class GameOutcome extends Model
     {
         return $this->belongsTo(GameMatch::class);
     }   
+
+    public function positions()
+    {
+        return $this->hasMany(GamePosition::class);
+    }      
 }

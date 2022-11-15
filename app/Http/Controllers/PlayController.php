@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+Use Alert;
+
 
 use App\Models\GameInQuestion;
 use App\Models\GameInAnswer;
@@ -77,25 +79,63 @@ class PlayController extends Controller
         $user = $request->user();
         $outcome = GameOutcome::find($id);
         $match = GameMatch::find($outcome->game_match_id);
+        $token_amount = 1000000;
 
-        $dollar = TokenBalance::where([
+        $dollar_balance = TokenBalance::where([
             ['user_id', '=', $user->id],
             ['token_id', '=', 1],
         ])->first();
-                
 
+        if($dollar_balance->balance <= $token_amount) {
+            return back();
+        }
+
+        $dollar_balance->balance -= $token_amount;
+        $dollar_balance->save();
+
+        $position = New GamePosition;
+        $position->game_match_id = $match->id;
+        $position->game_outcome_id = $outcome->id;
+        $position->user_id = $user->id;
+        $position->token_id = 1;
+        $position->token_amount = $token_amount;
+        $position->save();    
+
+        return back();
     }
 
     public function play_ingame(Request $request) {
         $id = (int)$request->route('id');
         $user = $request->user();
         $answer = GameInAnswer::find($id);
+        $question = GameInQuestion::find($answer->game_in_question_id);
         $match = GameMatch::find($answer->game_match_id);
+        $token_amount = 100000;
 
-        $dollar = TokenBalance::where([
+        $dollar_balance = TokenBalance::where([
             ['user_id', '=', $user->id],
             ['token_id', '=', 1],
         ])->first();
+
+        if($dollar_balance->balance <= $token_amount) {
+            Alert::error('Insufficient Balance', 'Please topup your token balance to make a bet.');
+            return back();
+        }
+
+        $dollar_balance->balance -= $token_amount;
+        $dollar_balance->save();
+
+        $position = New GameInPosition;
+        $position->game_match_id = $match->id;
+        $position->game_in_question_id = $question->id;
+        $position->game_in_answer_id = $answer->id;
+        $position->user_id = $user->id;
+        $position->token_id = 1;
+        $position->token_amount = $token_amount;
+        $position->save();  
+        
+        Alert::success('Successful Bet Made', 'You have successfully placed a bet on the in-game');
+        return back();
 
     }
 
@@ -133,7 +173,7 @@ class PlayController extends Controller
         GameInAnswer::create([
             'answer' => $request->answer,
             'game_match_id' => $id,
-            'question_id' => $request->question_id,
+            'game_in_question_id' => $request->question_id,
             'token_id' => 1,
             'token_min_amount' => $request->token_min_amount,
             'user_id' => $request->user()->id,             

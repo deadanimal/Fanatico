@@ -11,6 +11,7 @@ class GamePosition extends Model
 
     protected $fillable = [
         'game_match_id',
+        'outcome_id',
         'user_id', 
         'token_id',
         'token_amount',           

@@ -8,7 +8,7 @@
                 popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system,
                 extensive prebuilt components, and powerful JavaScript plugins.</p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-                <a href="/play"><button type="button" class="btn btn-primary btn-lg px-4 me-sm-3">Explore Now</button></a>
+                <a href="/dashboard"><button type="button" class="btn btn-primary btn-lg px-4 me-sm-3">Explore Now</button></a>
                 <a href="/faq"><button type="button" class="btn btn-outline-secondary btn-lg px-4">Learn More</button></a>
             </div>
         </div>

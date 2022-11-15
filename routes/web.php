@@ -42,10 +42,14 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::middleware(['auth', 'role:manager'])->group(function () { 
+Route::middleware(['auth', 'role:journalist,admin'])->group(function () { 
 
     Route::post('post', [DataController::class, 'cipta_post']);    
     Route::put('post/{id}', [DataController::class, 'kemaskini_post']); 
+
+});
+
+Route::middleware(['auth', 'role:manager,admin'])->group(function () { 
         
     Route::post('team', [DataController::class, 'cipta_team']);    
     Route::put('team/{id}', [DataController::class, 'kemaskini_team']);  
@@ -61,7 +65,7 @@ Route::middleware(['auth', 'role:manager'])->group(function () {
 });
 
 
-Route::middleware(['auth', 'role:manager'])->group(function () {
+Route::middleware(['auth', 'role:book-keeper,admin'])->group(function () {
     
     Route::post('match', [DataController::class, 'cipta_match']);
     Route::put('match/{id}', [DataController::class, 'kemaskini_match']);
@@ -72,11 +76,6 @@ Route::middleware(['auth', 'role:manager'])->group(function () {
 
     Route::post('match/{id}/outcome', [DataController::class, 'cipta_outcome']);    
     Route::put('outcome/{id}', [DataController::class, 'kemaskini_outcome']);   
-
-});
-
-
-Route::middleware(['auth', 'role:ingame'])->group(function () {  
 
     Route::post('match/{id}/question', [PlayController::class, 'cipta_question']);    
     Route::put('question/{id}', [PlayController::class, 'kemaskini_question']); 

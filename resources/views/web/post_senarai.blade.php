@@ -5,14 +5,21 @@
         <div class="col-3">
         </div>
         <div class="col-9">
-            @foreach($posts as $post) 
-            <a href="/post/{{$post->id}}">{{$post->name}}</a> - {{$post->description}} <br/>
-            @endforeach
+            <table class="table">
+                <tbody>
+                    @foreach ($posts as $post)
+                        <tr>
+                            <td><a href="/post/{{ $post->id }}">{{ $post->name }}</a></td>
+                            <td>{{$post->description}}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>            
         </div>
 
     </div>
 
-    @role('manager')
+    @role('journalist|admin')
         <div class="row">
             <div class="col-3">
                 <div class="card">

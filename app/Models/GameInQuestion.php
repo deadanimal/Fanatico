@@ -23,5 +23,10 @@ class GameInQuestion extends Model
     public function answers()
     {
         return $this->hasMany(GameInAnswer::class);
-    }      
+    }    
+    
+    public function positions()
+    {
+        return $this->hasMany(GameInPosition::class);
+    }     
 }

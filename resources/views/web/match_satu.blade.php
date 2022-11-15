@@ -9,59 +9,107 @@
     </div>
 
     <div class="row">
-        <div class="col">
-            <h1>Team</h1>
-            @foreach ($match->teams as $team)
-                <h4><a href="/team/{{$team->id}}">{{ $team->name }}</a></h4>
-                @foreach($team->players as $player)
-                    <a href="/player/{{$player->id}}">{{$player->name}}</a> <br/>
-                @endforeach
-            @endforeach
-        </div>
+        @foreach ($match->teams as $team)
+            <div class="col-3">
+
+                <div class="card">
+                    <div class="card-header">
+                        <a href="/team/{{ $team->id }}">{{ $team->name }}</a>
+                    </div>
+                    <div class="card-body">
+
+                        <table class="table">
+                            {{-- <thead>
+                                <tr>
+                                    <th scope="col">Player</th>
+                                </tr>
+                            </thead> --}}
+                            <tbody>
+                                @foreach ($team->players as $player)
+                                    <tr>
+                                        <td><a href="/player/{{ $player->id }}">{{ $player->name }}</a></td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
 
     <div class="row">
-        <div class="col">
-            <h1>Outcome ({{$match->outcomes->count()}})</h1>
-            @foreach ($match->outcomes as $outcome)
-                {{ $outcome->name }}  - <form action="/outcome/{{$outcome->id}}/play" method="POST"> @csrf <button type="submit" class="btn btn-primary">Buy Outcome</button> </form>
-                <br />
-            @endforeach
-        </div>
+        <h1>Outcome</h1>
+
+        @foreach ($match->outcomes as $outcome)
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-header">
+                        {{ $outcome->name }} ({{$outcome->positions->count()}})
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                                @foreach ($outcome->positions as $position)
+                                    <tr>
+                                        <td>{{$position->user->name}}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>                        
+                        
+                        <form action="/outcome/{{ $outcome->id }}/play" method="POST">
+                             @csrf
+                            <button type="submit" class="btn btn-primary">Buy Outcome</button> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
+
     </div>
 
 
-    <div class="row">
-        <div class="col">
-            <h1>Position ({{$match->positions->count()}})</h1>
-            @foreach ($match->positions as $position)
-                {{ $position->id }} <br />
-            @endforeach
-        </div>
-    </div>
 
     <div class="row">
-        <div class="col">
-            <h1>Question ({{$match->in_questions->count()}})</h1>
+        <h1>In-Game</h1>
+
             @foreach ($match->in_questions as $question)
-                {{ $question->question }} <br />
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-header">
+                        {{ $question->question }} ({{$question->positions->count()}})
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                                @foreach ($question->answers as $answer)
+                                    <tr>
+                                        <td>{{$answer->answer}} ({{$answer->positions->count()}}) </td>
+                                        <td>
+                                            <form action="/answer/{{ $answer->id }}/play" method="POST">
+                                                @csrf
+                                               <button type="submit" class="btn btn-primary">Buy answer</button> 
+                                           </form>                                            
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>                        
+                        
+                    </div>
+                </div>
+            </div>
             @endforeach
-        </div>
+
     </div>
 
-    <div class="row">
-        <div class="col">
-            <h1>Answer ({{$match->in_answers->count()}})</h1>
-            @foreach ($match->in_answers as $answer)
-                {{ $answer->question->question }} {{ $answer->answer }}  <form action="/answer/{{$answer->id}}/play" method="POST"> @csrf <button type="submit" class="btn btn-primary">Buy Answer</button> </form>
-                <br />
-            @endforeach
-        </div>
-    </div>
 
 
-
-    @role('manager')
+    @role('manager|admin')
         <div class="row">
             <div class="col-3">
                 <div class="card">
@@ -162,12 +210,12 @@
                             <div class="mb-3">
                                 <label class="form-label">Question</label>
                                 <select class="form-select" name="question_id">
-                                    @foreach($match->in_questions as $question)
-                                        <option value={{$question->id}}>{{$question->question}}</option>    
+                                    @foreach ($match->in_questions as $question)
+                                        <option value={{ $question->id }}>{{ $question->question }}</option>
                                     @endforeach
-    
-                                  </select>                                
-                            </div>                            
+
+                                </select>
+                            </div>
                             <div class="mb-3">
                                 <label class="form-label">Answer</label>
                                 <input type="text" class="form-control" id="answer" name="answer">
@@ -175,12 +223,12 @@
                             <div class="mb-3">
                                 <label class="form-label">Min</label>
                                 <input type="number" class="form-control" id="min" name="token_min_amount">
-                            </div>                            
+                            </div>
                             <button type="submit" class="btn btn-primary">Add answer</button>
                         </form>
                     </div>
-                </div>                
-            </div>            
+                </div>
+            </div>
         </div>
     @endrole
 @endsection

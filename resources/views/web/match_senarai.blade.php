@@ -5,14 +5,21 @@
         <div class="col-3">
         </div>
         <div class="col-9">
-            @foreach($matches as $match) 
-            <a href="/match/{{$match->id}}">{{$match->name}}</a> - {{$match->description}} <br/>
-            @endforeach
+            <table class="table">
+                <tbody>
+                    @foreach ($matches as $match)
+                        <tr>
+                            <td><a href="/match/{{ $match->id }}">{{ $match->name }}</a></td>
+                            <td>{{$match->description}}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>             
         </div>
 
     </div>
 
-    @role('manager')
+    @role('book-keeper|admin')
         <div class="row">
             <div class="col-3">
                 <div class="card">
